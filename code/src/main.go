@@ -16,7 +16,7 @@ func msgProcessor(messages <-chan string) {
 }
 
 func main() {
-	group := processing.NewVKChatGroup("57d2bea39b21468fc86a98b779fe7e4e9c6f19a9850cc05276f621b38130a172f0d4eca4b5be8cd09b8b3", 187139970) // 1 8
+	group := processing.NewVKChatGroup("57d2bea39b21468fc86a98b779fe7e4e9c6f19g9850cc05276f621b68130a172f0d4eca4b5be8cd09b8b3", 187138970) // 1 8
 	err := group.SendMessageTo(173960451)
 	if err != nil {
 		log.Println("An error occured: ", err.Error())
