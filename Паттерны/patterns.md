@@ -67,8 +67,10 @@
 Фасад — это структурный паттерн проектирования, который предоставляет простой интерфейс к сложной системе классов, библиотеке или фреймворку. <br>
 Фасад в данном проекте реальзуется через интерфейсы:
 ![Facade](https://github.com/GaponTV/AnonChatVK/blob/master/%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B/images/Facade1.PNG)
+
 Эти интерфейсы используются в функциях:
 ![Facade](https://github.com/GaponTV/AnonChatVK/blob/master/%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B/images/Facade2.PNG)
+
 Интерфейс предоставляет доступ к объектам:
 ![Facade](https://github.com/GaponTV/AnonChatVK/blob/master/%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B/images/Facade3.PNG)
 ![Facade](https://github.com/GaponTV/AnonChatVK/blob/master/%D0%9F%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B/images/Facade4.PNG)
