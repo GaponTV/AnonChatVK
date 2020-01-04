@@ -20,10 +20,10 @@ func NewVKChatGroup(accessToken string, groupID int64) *VKChatGroup {
 		groupID: groupID,
 		api:     api,
 	}
-	outcomingMessages := make(chan vkapi.SendMessageRequest, 30) // TODO вынести в конфиг размер очереди
+	outcomingMessages := make(chan vkapi.SendMessageRequest, 30)
 	grp.outcomingMessages = outcomingMessages
 	grp.chatProc.outcomingMsg = outcomingMessages
-	distributionTicker := time.Tick(time.Second * 5) // TODO вынести в конфиг период начала распределения очереди
+	distributionTicker := time.Tick(time.Second * 5)
 	go grp.chatProc.DistributeByChatsWorker(distributionTicker)
 	go grp.processOutcomingMessages(outcomingMessages)
 	return grp
@@ -78,31 +78,6 @@ func (grp *VKChatGroup) processNewMessages(messages <-chan vkapi.MessageObject) 
 				}
 			}
 		}
-		// keyboard := vkapi.Keyboard{
-		// 	OneTime: false,
-		// 	Buttons: [][]vkapi.Button{
-		// 		[]vkapi.Button{{
-		// 			Action: vkapi.Action{
-		// 				Type: "text",
-		// 				Payload: ButtonPayload{
-		// 					CommandName: CommandFind,
-		// 				},
-		// 				Label: "Следующий собеседник",
-		// 			},
-		// 			Color: vkapi.ColorButtonPrimary,
-		// 		}},
-		// 	},
-		// }
-
-		// var req vkapi.SendMessageRequest
-		// req.UserID = msg.SenderID
-		// req.Content = msg.Content + " - you writes!"
-		// req.Keyboard = &keyboard
-		// _, err := req.Run(grp.api)
-		// if err != nil {
-		// 	log.Println("An error occured while sending answer:", err.Error())
-		// 	continue
-		// }
 	}
 }
 

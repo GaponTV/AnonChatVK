@@ -97,12 +97,10 @@ func (cp *ChatProc) checkUserInQueue(userID int64) bool {
 	return false
 }
 
-// findChatWithUser ищет в чатах пользователя с идентификатором userID и в случае успеха возвращает ссылку на чат, в котром был найден.
-// Вторым результатом возвращается индекс чата в слайсе
 func (cp *ChatProc) findChatWithUser(userID int64) (*Chat, int) {
-	for i, c := range cp.chats {
+	for chatIndex, c := range cp.chats {
 		if c.FirstMember.UserID == userID || c.SecondMember.UserID == userID {
-			return &c, i
+			return &c, chatIndex
 		}
 	}
 	return nil, -1

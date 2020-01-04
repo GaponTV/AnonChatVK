@@ -15,6 +15,7 @@ type LongPollServerData struct {
 }
 
 func (api *VKBotAPI) initLongPollConnection() error {
+	log.Println("инит лонгполл коннектион")
 	req := GetLongPollServerRequest{api.groupID}
 	data, err := req.Run(api)
 	if err != nil {
@@ -33,7 +34,6 @@ type LongPollResponse struct {
 
 type LongPollFailed struct {
 	TS      int              `json:"ts"`
-	//Updates []LongPollUpdate `json:"updates"`
 
 	FailedCode int `json:"failed,omitempty"`
 }
@@ -86,12 +86,12 @@ func (api *VKBotAPI) OnLongPoolMessage(messages chan<- MessageObject) error {
 	}
 	try := 0
 
-	lpActions := make(chan LongPollUpdate, 100) // TODO: Размер буфера вынести в конфиг
+	lpActions := make(chan LongPollUpdate, 100)
 	defer close(lpActions)
 	go api.processLongPollUpdates(lpActions, messages)
 
 	client := http.Client{}
-	const MaxRequestAttempts = 5
+	const MaxRequestAttempts = 500
 	for {
 		if try == MaxRequestAttempts {
 			log.Fatalf("Количество неуспешных подряд обращений к LongPoll-серверу достигло максимума (%d попыток). Описание последней ошибки: %v\n",
@@ -102,10 +102,9 @@ func (api *VKBotAPI) OnLongPoolMessage(messages chan<- MessageObject) error {
 			lpData.Server,
 			lpData.Key,
 			lpData.TS,
-			25, // TODO: Вынести в конфиг
+			25,
 		)
 		log.Println("Выполнение запроса к LongPoll-серверу по пути", url)
-		// url := fmt.Sprintf(urlFmt, vkAPIEndpoint, method, api.accessToken, vkAPIVersion)
 		var resp *http.Response
 		resp, err = client.Get(url)
 		if err != nil {

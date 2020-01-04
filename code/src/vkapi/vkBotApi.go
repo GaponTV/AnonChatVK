@@ -24,7 +24,6 @@ type VKBotAPI struct {
 }
 
 func NewVKBotAPI(accessToken string, groupID int64) *VKBotAPI {
-	//preparedURL := fmt.Sprintf("%s/%s?access_token=%s&v=%s", vkAPIEndpoint, method, AccessToken, VKAPIVersion)
 	return &VKBotAPI{
 		accessToken: accessToken,
 		groupID:     groupID,
